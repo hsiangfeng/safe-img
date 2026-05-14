@@ -34,7 +34,8 @@ pnpm add safe-img
 
 ```html
 <script type="module">
-  import { safeImg, defineSafeImgElement } from 'https://unpkg.com/safe-img'
+  import { safeImg, defineSafeImgElement } from 'https://esm.sh/safe-img@0.1.0'
+  // or: 'https://cdn.jsdelivr.net/npm/safe-img@0.1.0/+esm'
 
   defineSafeImgElement()
   safeImg(document.querySelector('#avatar'), {
@@ -47,7 +48,8 @@ pnpm add safe-img
 **Classic `<script>` tag** — IIFE build exposes a global `SafeImg`:
 
 ```html
-<script src="https://unpkg.com/safe-img/dist/index.global.js"></script>
+<script src="https://unpkg.com/safe-img@0.1.0/dist/index.global.js"></script>
+<!-- or jsDelivr: https://cdn.jsdelivr.net/npm/safe-img@0.1.0/dist/index.global.js -->
 <script>
   const { safeImg, initSafeImg, defineSafeImgElement } = SafeImg
 
@@ -55,6 +57,8 @@ pnpm add safe-img
   initSafeImg()
 </script>
 ```
+
+> Pin a version (`@0.1.0`) for production. Omitting it (`safe-img` alone) resolves to `latest` and is cached by CDNs for up to 12 hours — fine for prototypes, risky in production.
 
 ## Quick start
 

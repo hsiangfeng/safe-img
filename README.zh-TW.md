@@ -29,7 +29,8 @@ pnpm add safe-img
 
 ```html
 <script type="module">
-  import { safeImg, defineSafeImgElement } from 'https://unpkg.com/safe-img'
+  import { safeImg, defineSafeImgElement } from 'https://esm.sh/safe-img@0.1.0'
+  // 或：'https://cdn.jsdelivr.net/npm/safe-img@0.1.0/+esm'
 
   defineSafeImgElement()
   safeImg(document.querySelector('#avatar'), {
@@ -42,7 +43,8 @@ pnpm add safe-img
 **傳統 `<script>` 標籤** — IIFE build 會把所有 API 掛到 global 變數 `SafeImg`：
 
 ```html
-<script src="https://unpkg.com/safe-img/dist/index.global.js"></script>
+<script src="https://unpkg.com/safe-img@0.1.0/dist/index.global.js"></script>
+<!-- 或 jsDelivr：https://cdn.jsdelivr.net/npm/safe-img@0.1.0/dist/index.global.js -->
 <script>
   const { safeImg, initSafeImg, defineSafeImgElement } = SafeImg
 
@@ -50,6 +52,8 @@ pnpm add safe-img
   initSafeImg()
 </script>
 ```
+
+> 正式環境建議**鎖版本**（`@0.1.0`）。不寫版本（直接 `safe-img`）會解析成 `latest`，CDN 端最久會快取 12 小時 —— prototype 沒差，正式用很危險。
 
 ## 起手式
 
