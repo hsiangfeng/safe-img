@@ -6,8 +6,13 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      formats: ['es', 'cjs'],
-      fileName: (format) => (format === 'es' ? 'index.mjs' : 'index.cjs'),
+      name: 'SafeImg',
+      formats: ['es', 'cjs', 'iife'],
+      fileName: (format) => {
+        if (format === 'es') return 'index.mjs'
+        if (format === 'cjs') return 'index.cjs'
+        return 'index.global.js'
+      },
     },
     rollupOptions: {
       output: {

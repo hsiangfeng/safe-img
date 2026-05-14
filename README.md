@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/safe-img.svg)](https://www.npmjs.com/package/safe-img)
 [![npm downloads](https://img.shields.io/npm/dm/safe-img.svg)](https://www.npmjs.com/package/safe-img)
 
-> [繁體中文](./README.zh-TW.md)
+> [繁體中文](./README.zh-TW.md) · [Live demo](https://israynotarray.com/safe-img/)
 
 A tiny, framework-agnostic library for the broken-image problem. Picks up an
 `<img>` and gives it a fallback chain, retry-with-delay, a shared failed-URL
@@ -26,6 +26,34 @@ dependencies.
 pnpm add safe-img
 # npm install safe-img
 # yarn add safe-img
+```
+
+### No build step? Two options
+
+**ES module from a CDN** — paste into any HTML file, no bundler needed:
+
+```html
+<script type="module">
+  import { safeImg, defineSafeImgElement } from 'https://unpkg.com/safe-img'
+
+  defineSafeImgElement()
+  safeImg(document.querySelector('#avatar'), {
+    src: 'https://example.com/cover.jpg',
+    fallback: '/local-default.jpg',
+  })
+</script>
+```
+
+**Classic `<script>` tag** — IIFE build exposes a global `SafeImg`:
+
+```html
+<script src="https://unpkg.com/safe-img/dist/index.global.js"></script>
+<script>
+  const { safeImg, initSafeImg, defineSafeImgElement } = SafeImg
+
+  defineSafeImgElement()
+  initSafeImg()
+</script>
 ```
 
 ## Quick start
