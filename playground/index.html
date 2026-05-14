@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>safe-img playground</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+        color: #1f2937;
+        background: #f9fafb;
+      }
+      h1 { font-size: 1.5rem; margin: 0 0 0.25rem; }
+      h2 { font-size: 1.1rem; margin: 2.5rem 0 0.75rem; }
+      p.lead { color: #6b7280; margin: 0 0 2rem; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0.75rem;
+        font-size: 0.85rem;
+        color: #6b7280;
+      }
+      .card .frame {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+      .card img,
+      .card safe-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      code { background: #f3f4f6; padding: 0 0.25rem; border-radius: 3px; }
+    </style>
+  </head>
+  <body>
+    <h1>safe-img playground</h1>
+    <p class="lead">Three APIs, one core: programmatic, declarative <code>data-*</code>, and a <code>&lt;safe-img&gt;</code> Web Component.</p>
+
+    <h2>1. Programmatic — <code>safeImg(el, opts)</code></h2>
+    <div class="grid">
+      <div class="card">
+        <div class="frame"><img id="prog-ok" /></div>
+        Working URL
+      </div>
+      <div class="card">
+        <div class="frame"><img id="prog-fail" /></div>
+        Broken URL → fallback
+      </div>
+    </div>
+
+    <h2>2. Declarative — <code>&lt;img data-safe-src&gt;</code></h2>
+    <div class="grid">
+      <div class="card">
+        <div class="frame"><img data-safe-src="https://picsum.photos/seed/decl-a/640/360" /></div>
+        Plain
+      </div>
+      <div class="card">
+        <div class="frame">
+          <img
+            data-safe-src="https://broken.example.com/missing.jpg"
+            data-safe-fallback="https://picsum.photos/seed/decl-b/640/360"
+            data-safe-retry="0"
+          />
+        </div>
+        Broken → fallback
+      </div>
+    </div>
+
+    <h2>3. Web Component — <code>&lt;safe-img&gt;</code> (layered backdrop)</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="frame"><safe-img src="https://picsum.photos/seed/wc-a/600/600" alt="square"></safe-img></div>
+        Layered: square in 16:9 frame (sides fill with blurred backdrop)
+      </div>
+      <div class="card">
+        <div class="frame">
+          <safe-img
+            src="https://broken.example.com/x.jpg"
+            fallback="https://picsum.photos/seed/wc-b/640/360"
+            retry="0"
+            alt="fallback"
+          ></safe-img>
+        </div>
+        Broken → fallback (no backdrop because chain ends in a built-in svg)
+      </div>
+      <div class="card">
+        <div class="frame">
+          <safe-img src="https://picsum.photos/seed/wc-c/640/360" layered="false" alt="flat"></safe-img>
+        </div>
+        layered="false" — plain image
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
