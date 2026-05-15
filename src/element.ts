@@ -12,6 +12,7 @@ const SHADOW_CSS = `
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  display: grid;
   width: 100%;
   height: 100%;
   background-color: var(--vsi-bg, #e5e7eb);
@@ -24,6 +25,7 @@ const SHADOW_CSS = `
   content: '';
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   backdrop-filter: blur(var(--vsi-blur, 20px));
   -webkit-backdrop-filter: blur(var(--vsi-blur, 20px));
   pointer-events: none;
@@ -37,13 +39,21 @@ const SHADOW_CSS = `
 }
 img {
   position: relative;
+  z-index: 1;
+  grid-area: 1 / 1;
   display: block;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
   object-fit: contain;
   object-position: center;
 }
 .frame.flat img {
+  grid-area: auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   object-fit: initial;
   object-position: initial;
 }
